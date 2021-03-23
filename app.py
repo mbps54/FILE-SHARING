@@ -156,11 +156,11 @@ def download():
         conn=sqlite3.connect("base.db")
         c=conn.cursor()
         for row in c.execute('SELECT * FROM data'):
-            if request.form['users name']==row[0] and request.form['folder password']==row[1]:
+            if request.form['users name']==row[0] and request.form['user password']==row[1]:
                 session['users name']=request.form['users name']
                 spisok=show_files(request.form['users name'])
                 return render_template("downloading.html",spisok=spisok)
-            elif request.form['users name']!=row[0] or request.form['folder password']!=row[1]:
+            elif request.form['users name']!=row[0] or request.form['user password']!=row[1]:
                 error1="Invalid data!"
             
         return render_template("download.html",error1=error1) 
