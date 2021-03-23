@@ -4,14 +4,14 @@ import os
 from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField 
 import sqlite3
 from flask import g
-from werkzeug import secure_filename
+#from werkzeug import secure_filename
 from flask import send_from_directory 
 
 def show_files(username):
-    return (os.listdir(path='C:\\Users\\Дмитро\\Desktop\\project\\files\\'+username))
+    return (os.listdir(path='/home/artem/FILE-SHARING/files/'+username))
        
 app = Flask(__name__)
-UPLOAD_FOLDER ='C:\\Users\\Дмитро\\Desktop\\project\\files\\'
+UPLOAD_FOLDER ='/home/artem/FILE-SHARING/files/'
 
 def get_user():
     lst=[]
@@ -78,7 +78,7 @@ def validate():
             error="The password aren`t same or password is to short!"        
         else:
             add_value(user,password,None)
-            path=r'C:\\Users\\Дмитро\\Desktop\\project\\files\\'
+            path=r'/home/artem/FILE-SHARING/files/'
             os.mkdir(path+user)
             error1="You are successfully registered :)"
             return render_template('login.html',error1=error1)
@@ -99,7 +99,7 @@ def directory():
     
 @app.route("/back",methods=['POST'])
 def back():
-    return redirect("http://127.0.0.1:4000/home",code=302)
+    return redirect("http://192.46.233.115:8080/home",code=302)
 
     
 @app.route("/delete",methods=['GET','POST'])
@@ -112,13 +112,13 @@ def delete():
     elif request.method=='POST': 
         choose=str(request.form.get('choose'))
         print(choose)
-        os.remove(path='C:\\Users\\Дмитро\\Desktop\\project\\files\\'+session.get('username', None)+'\\'+(choose))
-        return redirect("http://127.0.0.1:4000/home",code=302)
+        os.remove(path='/home/artem/FILE-SHARING/files/'+session.get('username', None)+'\\'+(choose))
+        return redirect("http://192.46.233.115:8080/home",code=302)
         
 @app.route("/remove",methods=['POST'])
 def remove():
-    os.remove(path='C:\\Users\\Дмитро\\Desktop\\project\\files\\'+session.get('username', None)+'\\'+(choose))
-    return redirect("http://127.0.0.1:4000/home",code=302)
+    os.remove(path='/home/artem/FILE-SHARING/files/'+session.get('username', None)+'\\'+(choose))
+    return redirect("http://192.46.233.115:8080/home",code=302)
     
 @app.route("/change",methods=['GET','POST'])
 def change():
@@ -170,4 +170,4 @@ def downloading():
     
 if __name__ == "__main__":
     app.secret_key = "James Bond"
-    app.run(debug=True,host='0.0.0.0', port=4000)
+    app.run(debug=True,host='192.46.233.115', port=8080)
