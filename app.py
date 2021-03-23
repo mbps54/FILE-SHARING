@@ -4,7 +4,9 @@ import os
 from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField 
 import sqlite3
 from flask import g
-from werkzeug import secure_filename
+#from werkzeug import secure_filename
+from werkzeug.utils import secure_filename
+from werkzeug.datastructures import  FileStorage
 from flask import send_from_directory 
 
 def show_files(username):
