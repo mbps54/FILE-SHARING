@@ -114,12 +114,12 @@ def delete():
     elif request.method=='POST': 
         choose=str(request.form.get('choose'))
         print(choose)
-        os.remove(path='/home/artem/FILE-SHARING/files/'+session.get('username', None)+'\\'+(choose))
+        os.remove(path='/home/artem/FILE-SHARING/files/'+session.get('username', None)+'/'+(choose))
         return redirect("http://192.46.233.115:8080/home",code=302)
         
 @app.route("/remove",methods=['POST'])
 def remove():
-    os.remove(path='/home/artem/FILE-SHARING/files/'+session.get('username', None)+'\\'+(choose))
+    os.remove(path='/home/artem/FILE-SHARING/files/'+session.get('username', None)+'/'+(choose))
     return redirect("http://192.46.233.115:8080/home",code=302)
     
 @app.route("/change",methods=['GET','POST'])
