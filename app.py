@@ -101,7 +101,7 @@ def directory():
     
 @app.route("/back",methods=['POST'])
 def back():
-    return redirect("http://192.46.233.115:8080/home",code=302)
+    return redirect("http://192.46.233.115:80/home",code=302)
 
     
 @app.route("/delete",methods=['GET','POST'])
@@ -115,12 +115,12 @@ def delete():
         choose=str(request.form.get('choose'))
         print(choose)
         os.remove(path='/home/artem/FILE-SHARING/files/'+session.get('username', None)+'/'+(choose))
-        return redirect("http://192.46.233.115:8080/home",code=302)
+        return redirect("http://192.46.233.115:80/home",code=302)
         
 @app.route("/remove",methods=['POST'])
 def remove():
     os.remove(path='/home/artem/FILE-SHARING/files/'+session.get('username', None)+'/'+(choose))
-    return redirect("http://192.46.233.115:8080/home",code=302)
+    return redirect("http://192.46.233.115:80/home",code=302)
     
 @app.route("/change",methods=['GET','POST'])
 def change():
@@ -172,4 +172,4 @@ def downloading():
     
 if __name__ == "__main__":
     app.secret_key = "James Bond"
-    app.run(debug=True,host='192.46.233.115', port=8080)
+    app.run(debug=True,host='192.46.233.115', port=80)
