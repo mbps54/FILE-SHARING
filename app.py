@@ -11,7 +11,7 @@ from flask import send_from_directory
 
 def show_files(username):
     return (os.listdir(path='/home/artem/FILE-SHARING/files/'+username))
-       
+
 app = Flask(__name__)
 UPLOAD_FOLDER ='/home/artem/FILE-SHARING/files/'
 
@@ -46,7 +46,7 @@ def do_login():
             return render_template('home.html',error2=error2)
         elif row[0]!= session['username'] or row[1]!=password:
             error1="Wrong username or password!Please, try again."
-            
+
         conn.commit()
     return render_template('login.html',error1=error1)
 
@@ -72,12 +72,12 @@ def validate():
     user=request.form['user']
     password=request.form['pass']
     repeat_password=request.form['repeat_password']
-    
+
     if user!="" and password!="" and repeat_password!="":
         if user in l:
             error= "This username is already used. Please, enter other username!"
         elif user not in l and (password!=repeat_password or len(password)<6):
-            error="The password aren`t same or password is to short!"        
+            error="The password aren`t same or password is to short!"
         else:
             add_value(user,password,None)
             path=r'/home/artem/FILE-SHARING/files/'
@@ -87,7 +87,7 @@ def validate():
     else:
         error="The fields cannot be empty!"
     return render_template('register.html',error=error)
-    
+
 @app.route("/logout",methods=['POST'])
 def logout():
     session.pop('users name')
@@ -98,29 +98,29 @@ def logout():
 def directory():
     files=show_files(session.get('username', None))
     return render_template("directory.html",files=files)
-    
+
 @app.route("/back",methods=['POST'])
 def back():
-    return redirect("http://0.0.0.0:80/home",code=302)
+    return redirect("http://192.46.233.115:80/home",code=302)
 
-    
+
 @app.route("/delete",methods=['GET','POST'])
 
 def delete():
     if request.method=='GET':
         lst=show_files(session.get('username'))
         return render_template("delete.html",lst=lst)
-         
-    elif request.method=='POST': 
+
+    elif request.method=='POST':
         choose=str(request.form.get('choose'))
         print(choose)
         os.remove(path='/home/artem/FILE-SHARING/files/'+session.get('username', None)+'/'+(choose))
-        return redirect("http://0.0.0.0:80/home",code=302)
-        
+        return redirect("http://192.46.233.115:80/home",code=302)
+
 @app.route("/remove",methods=['POST'])
 def remove():
     os.remove(path='/home/artem/FILE-SHARING/files/'+session.get('username', None)+'/'+(choose))
-    return redirect("http://0.0.0.0:80/home",code=302)
+    return redirect("http://192.46.233.115:80/home",code=302)
     
 @app.route("/change",methods=['GET','POST'])
 def change():
@@ -172,4 +172,4 @@ def downloading():
     
 if __name__ == "__main__":
     app.secret_key = "James Bond"
-    app.run(debug=True,host='0.0.0.0', port=80)
+    app.run(debug=True,host='192.46.233.115', port=80)
